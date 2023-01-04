@@ -1,2 +1,4 @@
 clase-10
-**/node_modules/
+#clase-9/node_modules/
+/**/*node_modules
+#**/node_modules/*
