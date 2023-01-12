@@ -13,6 +13,7 @@ export const createUser = async (req, res) => {
 export const getAllUsers = async (req, res) => {
     const users = await userRepository.getAllUsers();
 
+    //todo: enviar mail
     mailService.sendMail(users);
     res.status(200).json({users});
 };
@@ -38,5 +39,23 @@ export const deleteUser = async (req, res) => {
         res.json({user});
     } catch (error) {
       res.status(500)  .json({error});
+    }
+}
+
+export const createUserTasks = async(req, res) => {
+    try {
+        const tasks = await userRepository.createUserTasks(req.body, req.params.userId);
+        res.json({tasks})
+    } catch (error) {
+        res.status(500).json({error});
+    }
+}
+
+export const getAllTasksByUserId = async (req, res) => {
+    try {
+        const tasks = await userRepository.getAllUserTasksById(req.params.userId);
+        res.json({tasks});
+    } catch (error) {
+        res.status(500).json({error});
     }
 }

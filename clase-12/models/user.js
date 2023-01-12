@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize';
 import db from '../db.js';
+import Role from './role.js';
+import Task from './task.js';
 
 const User = db.define('User', {
     'id': {
@@ -38,5 +40,10 @@ const User = db.define('User', {
         }
     },
 });
+
+User.Task = User.hasMany(Task);
+Task.User = Task.belongsTo(User);
+User.Role = User.belongsToMany(Role,{ through: "Roles_Users"});
+Role.User = Role.belongsToMany(User, { through: "Roles_Users"});
 
 export default User;
